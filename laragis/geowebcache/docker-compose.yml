@@ -1,0 +1,33 @@
+version: '3.8'
+
+volumes:
+  gwc_data:
+
+services:
+  geowebcache-prod:
+    image: geowebcache-prod
+    volumes:
+      - gwc_data:/opt/geowebcache/data_dir
+    ports:
+      - ${GWC_PORT}:8080
+    restart: on-failure
+    environment:
+      - GWC_DATA_DIR=${GWC_DATA_DIR}
+      - GWS_ADMIN_USER=${GWS_ADMIN_USER}
+      - GWS_ADMIN_PASSWORD=${GWS_ADMIN_PASSWORD}
+      - INITIAL_MEMORY=${INITIAL_MEMORY}
+      - MAXIMUM_MEMORY=${MAXIMUM_MEMORY}
+      - GWC_SEED_RETRY_COUNT=${GWC_SEED_RETRY_COUNT}
+      - GWC_SEED_RETRY_WAIT=${GWC_SEED_RETRY_WAIT}
+      - GWC_SEED_ABORT_LIMIT=${GWC_SEED_ABORT_LIMIT}
+      - GWC_INITIAL_SEED_THREAD_POOL=${GWC_INITIAL_SEED_THREAD_POOL}
+      - GWC_MAXIMUM_SEED_THREAD_POOL=${GWC_MAXIMUM_SEED_THREAD_POOL}
+    entrypoint: [ "/scripts/entrypoint.sh" ]
+    build:
+      context: .
+      args:
+        IMAGE_VERSION: ${IMAGE_VERSION}
+        JAVA_HOME: ${JAVA_HOME}
+        GWC_VERSION: ${GWC_VERSION}
+        WAR_URL: ${WAR_URL}
+      target: geowebcache-prod

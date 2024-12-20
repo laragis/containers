@@ -1,0 +1,23 @@
+{
+  "wmsLayers": [
+    {
+      "name": "satellite_lv10",
+      "wmsUrl": "http://10.0.0.60:8601/geoserver/osm/wms",
+      "wmsLayers": "osm:satellite_lv10",
+      "metaInformation": {
+        "title": "Satellite level 10",
+        "description": "Satellite level 10"
+      }
+    },
+    {
+      "name": "satellite_lv18",
+      "wmsUrl": "http://10.0.0.60:8601/geoserver/osm/wms",
+      "wmsLayers": "osm:satellite_lv18",
+      "metaInformation": {
+        "title": "Satellite level 18",
+        "description": "Satellite level 18"
+      }
+    }
+  ]
+}
+  
