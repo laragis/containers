@@ -1,0 +1,50 @@
+wmsLayers:
+  - name: v_benhvien_pt
+    wmsUrl: http://100.91.148.67:8600/geoserver/osm/wms
+    wmsLayers: 'osm:v_benhvien_pt'
+    metaInformation:
+      title: Satellite level 10
+      description: Satellite level 10
+    mimeFormats:
+      - image/gif
+      - image/jpeg
+      - image/png
+      - image/png8
+    gridSubsets:
+      - gridSetName: EPSG:4326
+        extent: 
+          - 103.457926
+          - 9.161153
+          - 109.355373
+          - 23.280015
+      - gridSetName: EPSG:900913
+        extent: 
+          - 11516883.64
+          - 1024188.22
+          - 12173384.44
+          - 2665917.02
+
+  - name: v_congan_pt
+    wmsUrl: http://100.91.148.67:8600/geoserver/osm/wms
+    wmsLayers: 'osm:v_congan_pt'
+    metaInformation:
+      title: Satellite level 18
+      description: Satellite level 18
+    mimeFormats:
+      - image/gif
+      - image/jpeg
+      - image/png
+      - image/png8
+    gridSubsets:
+      - gridSetName: EPSG:4326
+        extent: 
+          - 105.316867
+          - 20.6257
+          - 107.081222
+          - 21.360734
+      - gridSetName: EPSG:900913
+        extent: 
+          - 11723820.01
+          - 2347302.86
+          - 11920227.11
+          - 2434944.61
