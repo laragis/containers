@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gwcConfiguration 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://geowebcache.org/schema/1.8.0"
+  xsi:schemaLocation="http://geowebcache.org/schema/1.8.0 http://geowebcache.org/schema/1.8.0/geowebcache.xsd"
+>
+  <version>1.8.0</version>
+  <backendTimeout>120</backendTimeout>
+  
+  <layers>
+    
+    {{- range (datasource "layers_yml").wmsLayers }}
+      <wmsLayer>
+        <name>{{ .name }}</name>
+        <metaInformation>
+          <title>{{ .metaInformation.title }}</title>
+          <description>{{ .metaInformation.description }}</description>
+        </metaInformation>
+        <mimeFormats>
+          {{- range .mimeFormats }}
+            <string>{{ . }}</string>
+          {{- end }}
+        </mimeFormats>
+        <gridSubsets>
+          {{- range .gridSubsets }}
+            <gridSubset>
+              <gridSetName>{{ .gridSetName }}</gridSetName>
+              <extent>
+                <coords>
+                  {{- range .extent }}
+                    <double>{{ . }}</double>
+                  {{- end }}
+                </coords>
+              </extent>
+            </gridSubset>
+          {{- end }}
+        </gridSubsets>
+        <wmsUrl>
+          <string>{{ .wmsUrl }}</string>
+        </wmsUrl>
+        <wmsLayers>{{ .wmsLayers }}</wmsLayers>
+      </wmsLayer>
+    {{- end }}
+
+  </layers>
+  
+</gwcConfiguration>

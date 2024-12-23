@@ -32,7 +32,7 @@ git clone https://github.com/TranNhanGIS/docker-geowebcache.git
 cd docker-geowebcache
 ```
 
-2. **Download and move the GeoWebCache package**:
+2. **Download and move packages**:
 
 - You can download the GeoWebCache .zip file from the following link by replacing ${GWC_VERSION} with your desired version:
     https://downloads.sourceforge.net/project/geowebcache/geowebcache/${GWC_VERSION}/geowebcache-${GWC_VERSION}-war.zip
@@ -43,20 +43,21 @@ cd docker-geowebcache
 docker-geowebcache/
 ├── packages/
     ├── geowebcache-${GWC_VERSION}-war.zip
-├── scripts/
-    ├── entrypoint.sh/
-    ├── functions.sh/
-├── settings/
-    ├── geowebcache-core-context.xml/
-    ├── geowebcache.xml/
-    ├── layers.json/
-    ├── user.properties/
-    ├── web.xml/
+    ├── gomplate_linux-amd64
+├── sources/
+    ├── layers.yaml/
+├── templates/
+    ├── geowebcache-core-context.xml.envsubst/
+    ├── geowebcache.xml.tmpl/
+    ├── user.properties.envsubst/
+    ├── web.xml.envsubst/
 ├── .dockerignore
 ├── .env
 ├── .gitignore
 ├── docker-compose.yml
 ├── Dockerfile
+├── entrypoint.sh
+├── Makefile
 ├── README.md
 ```
 
@@ -67,37 +68,19 @@ docker-geowebcache/
 
 3. **Build and Run the Docker image**:
 
-- **Docker**
-
 ```bash
-sudo docker build -t geowebcache-prod .
-sudo docker run -p 8600:8080 geowebcache-prod
-```
-
-- **Docker compose**
-
-```bash
-sudo docker-compose up -d --build geowebcache-prod
+sudo docker-compose up -d --build
 ```
 
 4. **Access the GeoWebCache instance:**:
 
 After the containers have started, you can access GeoWebCache by navigating to the following URL 
-    http://localhost:8600/geowebcache
+    http://localhost:9600/geowebcache
 
 ## Stopping the Application:
 
-- **Docker**
-
 ```bash
-sudo docker rm -f "<Container_ID>"
-sudo docker rmi geowebcache-prod
-```
-
-- **Docker compose**
-
-```bash
-sudo docker-compose down --rmi all
+sudo docker-compose down -v
 ```
 
 ## Configuration
@@ -107,23 +90,22 @@ The application has several configurable environment variables, which are define
 ### Build Arguments
 
 * IMAGE_VERSION: The version of the base Tomcat image.
-* JAVA_HOME: The location of the Java installation.
 * GWC_VERSION: The version of GeoWebCache.
 * WAR_URL: URL for downloading GeoWebCache WAR file.
 
 ### Environment Variables
 
-* GWS_ADMIN_USER: The default admin user for GeoWebCache.
-* GWS_ADMIN_PASSWORD: The password for the admin user.
-* GWC_DATA_DIR: Directory where GeoWebCache stores its data.
 * INITIAL_MEMORY: The initial memory allocated to the Java heap.
 * MAXIMUM_MEMORY: The maximum memory allocated to the Java heap.
-* GWC_PORT: Port used internally by GeoWebCache.
+* GWC_DATA_DIR: Directory where GeoWebCache stores its data.
 * GWC_SEED_RETRY_COUNT: The number of retries for GeoWebCache seeding.
 * GWC_SEED_RETRY_WAIT: The wait time between retries for GeoWebCache seeding (in milliseconds).
 * GWC_SEED_ABORT_LIMIT: The limit for aborting GeoWebCache seeding.
 * GWC_INITIAL_SEED_THREAD_POOL: The initial number of threads allocated for seeding tasks in GeoWebCache. 
 * GWC_MAXIMUM_SEED_THREAD_POOL: The maximum number of threads allowed for seeding tasks in GeoWebCache. 
+* GWS_ADMIN_USER: The default admin user for GeoWebCache.
+* GWS_ADMIN_PASSWORD: The password for the admin user.
+* GWC_PORT: Port used internally by GeoWebCache.
 
 You can modify these variables in the docker-compose.yml file to suit your environment.
 
