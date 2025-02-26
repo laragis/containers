@@ -1,0 +1,4 @@
+services:
+  python:
+    image: ${ORG_NAME}/${APP_SLUG}:${APP_VERSION}
+    tty: true
