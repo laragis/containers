@@ -1,0 +1,20 @@
+volumes:
+  scrapyd_data:
+
+services:
+  scrapyd:
+    image: ${ORG_NAME}/${APP_SLUG}:${APP_VERSION}
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - SCRAPYD_VERSION=${SCRAPYD_VERSION}
+      target: production
+    environment:
+      SCRAPYD_USERNAME: ${SCRAPYD_USERNAME}
+      SCRAPYD_PASSWORD: ${SCRAPYD_PASSWORD}
+      DB_URL: ${DB_URL}
+    volumes:
+      - scrapyd_data:/var/lib/scrapyd
+    ports:
+      - "${APP_FORWARD_PORT}:${APP_PORT}"
